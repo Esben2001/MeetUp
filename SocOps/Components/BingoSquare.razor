@@ -5,11 +5,11 @@
     disabled="@Square.IsFreeSpace"
     class="@GetCssClasses()"
     aria-pressed="@Square.IsMarked"
-    aria-label="@(Square.IsFreeSpace ? "Free space" : Square.Text)">
-    <span class="wrap-break-word hyphens-auto">@Square.Text</span>
+    aria-label="@(Square.IsFreeSpace ? "Free Pokeball" : Square.Text)">
+    <span class="wrap-break-word hyphens-auto">@GetDisplayText()</span>
     @if (Square.IsMarked && !Square.IsFreeSpace)
     {
-        <span class="absolute top-0.5 right-0.5 text-green-600 text-xs">✓</span>
+        <span class="absolute top-0.5 right-0.5 text-pokemon-red text-xs animate-pokeball-shake">⚾</span>
     }
 </button>
 
@@ -23,18 +23,35 @@
     [Parameter]
     public EventCallback OnClick { get; set; }
 
+    private string GetDisplayText()
+    {
+        if (Square.IsFreeSpace)
+        {
+            return "⚾ FREE ⚾";
+        }
+        return Square.Text;
+    }
+
     private string GetCssClasses()
     {
         var baseClasses = "relative flex items-center justify-center p-1 text-center border border-gray-300 rounded transition-all duration-150 select-none min-h-[60px] text-xs leading-tight";
 
+        string typeClass = GetTypeClass();
+
         var stateClasses = Square.IsMarked
             ? IsWinning
-                ? "bg-amber-200 border-amber-400 text-amber-900"
-                : "bg-marked border-marked-border text-green-800"
-            : "bg-white text-gray-700 active:bg-gray-100";
+                ? "bg-pokemon-yellow border-pokemon-yellow text-pokemon-red"
+                : "bg-pokemon-green border-pokemon-green text-white"
+            : $"bg-white {typeClass} active:bg-gray-100";
 
-        var freeSpaceClasses = Square.IsFreeSpace ? "font-bold text-sm" : "";
+        var freeSpaceClasses = Square.IsFreeSpace ? "font-bold text-sm bg-pokemon-red text-white border-pokemon-yellow" : "";
 
         return $"{baseClasses} {stateClasses} {freeSpaceClasses}";
+    }
+
+    private string GetTypeClass()
+    {
+        string[] types = { "bg-pokemon-fire", "bg-pokemon-water", "bg-pokemon-grass", "bg-pokemon-electric", "bg-pokemon-psychic", "bg-pokemon-dark" };
+        return types[Square.Id % types.Length];
     }
 }
