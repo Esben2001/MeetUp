@@ -56,6 +56,48 @@ dotnet run --project SocOps            # Run dev server (port 5166)
 
 ---
 
+## Design Guide
+
+### Pokemon Theme Aesthetics
+
+The app features a vibrant Pokemon-themed design with distinctive colors, playful typography, and Pokemon-inspired interactions. Maintain this cohesive aesthetic in all UI changes.
+
+**Color Palette:**
+- Primary: Pokemon Blue (#3B4CCA)
+- Secondary: Pokemon Red (#FF0000)
+- Accent: Pokemon Yellow (#FFDE00)
+- Success: Pokemon Green (#78C850)
+- Type Colors: Fire (#FF4422), Water (#3399FF), Grass (#77CC55), Electric (#FFCC33), Psychic (#FF5599), Dark (#664433)
+
+**Typography:**
+- Font: 'Fredoka One' for playful, rounded feel
+- Hierarchy: Use text utilities for consistent sizing (text-xs to text-5xl)
+- Emphasis: font-semibold/bold for key elements
+
+**Visual Elements:**
+- Background: Pokemon world gradient (sky to grass)
+- Icons: Use Pokemon emojis (⚾, 🐭, ⚡) and symbols
+- Animations: Pokeball shake for interactions, evolution effects for wins
+- Borders: Rounded corners, Pokemon yellow borders for emphasis
+
+### Frontend Design Principles
+
+Avoid generic AI aesthetics by committing to distinctive, creative choices:
+
+- **Typography**: Choose unique fonts like Fredoka One over generic options (Inter, Arial)
+- **Color**: Dominant colors with sharp accents; avoid timid, evenly-distributed palettes
+- **Motion**: Use CSS animations for high-impact moments (modal wins, square marking)
+- **Backgrounds**: Layer gradients and effects for atmosphere rather than solid colors
+- **Composition**: Unexpected layouts that feel genuinely designed for the Pokemon context
+
+**Implementation Notes:**
+- Use custom CSS utilities in `wwwroot/css/app.css`
+- Components handle rendering only; logic stays in services
+- Maintain responsive design and accessibility
+- Test animations for smooth performance
+
+---
+
 ## Style Guide
 
 - **C#**: PascalCase for public members, follow `BingoGameService` conventions
